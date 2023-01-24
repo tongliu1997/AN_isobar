@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+lib_path="${HOME}/AN_isobar"
+if (( $# == 0 )); then
+     echo requires -L or -I as an argument
+     exit 1
+fi
+if [ $1 = "-I" ]; then
+    echo -I${HOME}/AN_isobar/include
+elif [ $1 = "-L" ]; then
+    str="-L${lib_path}/lib"
+
+    for io in io oi; do
+        while read line; do
+            str="${str} -l${line}"
+        done < ${lib_path}/stroot_list
+    done
+    echo ${str}
+else
+     echo requires -L or -I as an argument
+     exit 1
+fi
+
